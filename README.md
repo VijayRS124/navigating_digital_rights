@@ -168,19 +168,8 @@ The **GDPR Compliance Prediction API** is a machine learning-powered API that pr
 - **Storage:** Data will be stored in **Supabase**.
 - **Email Service:** Use an **open-source mail service** to send automated reminders.
 
----
-
-## **Why MIT License?**
-We are using the **MIT License** instead of the **Apache License** because:
-- **MIT License** is more **permissive** and allows developers to use, modify, and distribute the code with minimal restrictions.
-- **Apache License** requires explicit **attribution and patent rights**, which may introduce additional legal requirements.
-- The **MIT License** is **simpler and more widely used** for open-source projects, making it easier for contributors.
 
 ---
 
 ## **Author**
 Developed by **VijayRS124**
-
-## **License**
-This project is **open-source** under the **MIT License**.
-
