@@ -1,0 +1,11 @@
+flask
+pandas
+scikit-learn
+joblib
+waitress
+nltk
+xgboost
+torch
+matplotlib
+transformers
+imblearn
