@@ -1,5 +1,6 @@
 # navigating_digital_rights
 # DataShield : Compliance App
+<img src="images/pic3.png" style="width: 15%; height: auto; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
 
 **DataShield** is an open-source mobile application designed for businesses and individuals who need to ensure regulatory compliance. This unified solution combines:
 
@@ -159,3 +160,18 @@ The **GDPR Compliance Prediction API** is a machine learning-powered API that pr
 <img src="images/pic2.png" width="40%" height="60%">  
 
 ---
+
+## **Future Plans**
+
+### **Reminder-Based Email System for Tax Deadlines**
+- **Purpose:** Send reminder emails before tax deadlines such as **TDS, TCS, ITR, Advance Tax**, etc.
+- **Reminder Timeline:** Emails will be sent **10 days, 5 days, and 1 day** before each deadline.
+- **Data Source:** Since there is no public API available, we will **scrape tax-related websites** (e.g., **ClearTax**) to extract deadline information.
+- **Storage:** Data will be stored in **Supabase**.
+- **Email Service:** Use an **open-source mail service** to send automated reminders.
+
+
+---
+
+## **Author**
+Developed by **VijayRS124**
