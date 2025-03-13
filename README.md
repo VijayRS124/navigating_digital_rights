@@ -1,7 +1,7 @@
 # DataShield : Compliance App
+<img src="images/pic3.png" style="width: 15%; height: auto; position: absolute; right: 10px; top: 10px;">
 
 **DataShield** is an open-source mobile application designed for businesses and individuals who need to ensure regulatory compliance. This unified solution combines:
-<img src="images/pic3.png" style="width: 15%; height: auto; position: absolute; right: 10px; top: 10px;">
 
 ## 1. GDPR Compliance Checker
 - Analyzes text input to determine whether it violates GDPR.
