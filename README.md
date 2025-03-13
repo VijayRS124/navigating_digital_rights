@@ -1,5 +1,5 @@
 # DataShield : Compliance App
-<img src="images/pic3.png" style="width: 15%; height: auto; position: absolute; right: 10px; top: 10px;">
+<img src="images/pic3.png" style="width: 15%; height: auto; position: absolute; right: 10px; top: 50%; transform: translateY(-50%);">
 
 **DataShield** is an open-source mobile application designed for businesses and individuals who need to ensure regulatory compliance. This unified solution combines:
 
