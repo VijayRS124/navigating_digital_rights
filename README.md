@@ -1,7 +1,7 @@
 # DataShield : Compliance App
 
 **DataShield** is an open-source mobile application designed for businesses and individuals who need to ensure regulatory compliance. This unified solution combines:
-
+<img src="images/pic3.png" width="30%" height="30%">  
 ## 1. GDPR Compliance Checker
 - Analyzes text input to determine whether it violates GDPR.
 - Uses a machine learning pipeline (with TF-IDF, SMOTE, and multiple classifiers) to classify text as **"Compliant"** or **"Non-compliant"**.
