@@ -40,47 +40,74 @@ class _UploadScreenState extends State<UploadScreen> {
   }
 
   Future<void> uploadFile() async {
-    if (selectedFiles.isEmpty) {
-      print("no files selected");
-      return;
-    }
+  if (selectedFiles.isEmpty) {
+    print("No files selected");
+    return;
+  }
 
-    File firstFile = selectedFiles.first;
-    String fileName = firstFile.path.split('/').last;
+  File firstFile = selectedFiles.first;
+  String fileName = firstFile.path.split('/').last;
+  String apiUrl = "http://10.0.2.2:8000/predict";
+  String apiKey = "abc123secretXYZ";
 
-    String? apiUrl = "http://10.0.2.2:8000/predict";
-    String? apiKey = "abc123secretXYZ";
-
-    if (apiUrl == null || apiKey == null) {
+  if (apiUrl.isEmpty || apiKey.isEmpty) {
     print("API URL or API Key is missing");
     return;
   }
 
-    var request = http.MultipartRequest('POST',Uri.parse(apiUrl))
-      ..headers.addAll({
-        "X-API-Key": apiKey
-      })
-      ..files.add(
-      await http.MultipartFile.fromPath('file',firstFile.path)
-    );
+  // Show loading dialog
+  showDialog(
+    context: context,
+    barrierDismissible: false, // Prevent closing while loading
+    builder: (BuildContext context) {
+      return AlertDialog(
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 10),
+            Text("Processing file... Please wait"),
+          ],
+        ),
+      );
+    },
+  );
+
+  try {
+    var request = http.MultipartRequest('POST', Uri.parse(apiUrl))
+      ..headers.addAll({"X-API-Key": apiKey})
+      ..files.add(await http.MultipartFile.fromPath('file', firstFile.path));
 
     var response = await request.send();
 
-  if (response.statusCode == 200) {
-    var responseBody = await response.stream.bytesToString();
-    Map<String, dynamic> jsonResponse = json.decode(responseBody);
+    Navigator.pop(context); // Close the loading dialog
 
-    // Navigate to Dashboard Screen with response data
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => DashboardScreen(data: jsonResponse),
-      ),
+    if (response.statusCode == 200) {
+      var responseBody = await response.stream.bytesToString();
+      Map<String, dynamic> jsonResponse = json.decode(responseBody);
+
+      // Navigate to Dashboard Screen with response data
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => DashboardScreen(data: jsonResponse),
+        ),
+      );
+    } else {
+      print("Error: ${response.statusCode}");
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Upload failed. Please try again.")),
+      );
+    }
+  } catch (e) {
+    Navigator.pop(context); // Close the loading dialog on error
+    print("Upload error: $e");
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("An error occurred while uploading.")),
     );
-  } else {
-    print("Error: ${response.statusCode}");
   }
-  }
+}
+
 
   void removeFile(int index){
     setState(() {

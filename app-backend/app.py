@@ -61,8 +61,8 @@ def preprocess_text(text: str) -> str:
 # Load and Prepare Dataset
 # --------------------------------------
 try:
-    df1 = pd.read_csv(r"C:\Users\kishore l\digital_rights\digital_rights\app-backend\gdpr_violations_noisy.csv")
-    df2 = pd.read_csv(r"C:\Users\kishore l\digital_rights\digital_rights\app-backend\gdpr_text_noisy.csv")
+    df1 = pd.read_csv("gdpr_violations_noisy.csv")
+    df2 = pd.read_csv("gdpr_text_noisy.csv")
     dataset = pd.concat([df1, df2]).drop_duplicates()
     dataset['summary'] = dataset['summary'].fillna('')
 

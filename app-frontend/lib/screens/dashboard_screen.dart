@@ -12,6 +12,8 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
+    List<dynamic> predictions = widget.data["predictions"] ?? [];
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -37,33 +39,46 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   color: Color.fromARGB(255, 51, 85, 255),
                   fontWeight: FontWeight.w900,
                   fontFamily: "Roboto",
-                  fontSize: 30,
+                  fontSize: 28,
                 ),
               ),
               SizedBox(height: 5),
               Text(
                 "Your data, your decisions",
                 style: TextStyle(
-                  color: Colors.black,
+                  color: Colors.black87,
                   fontFamily: "Roboto",
                   fontSize: 14,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               SizedBox(height: 20),
 
-              // Displaying Input Text
-              DataCard(
-                title: "Input Text",
-                content: widget.data["file_name"] ?? "No input provided",
+              // Prediction Table
+              Text(
+                "Predictions & Compliance Status",
+                style: TextStyle(
+                  color: Colors.black87,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 10),
 
-              // Displaying Prediction
-              DataCard(
-                title: "Prediction Result",
-                content: widget.data["prediction"] ?? "No prediction available",
-                highlight: true,
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  border: Border.all(color: Colors.grey.shade300),
+                ),
+                child: Column(
+                  children: predictions.map((prediction) {
+                    return RuleItem(
+                      ruleText: prediction["rule"],
+                      status: prediction["prediction"],
+                      summary: prediction["gemini_summary"] ?? "No summary available",
+                    );
+                  }).toList(),
+                ),
               ),
             ],
           ),
@@ -120,6 +135,70 @@ class DataCard extends StatelessWidget {
               color: highlight ? Colors.white : Colors.black87,
             ),
             softWrap: true,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// Rule Item Widget
+class RuleItem extends StatelessWidget {
+  final String ruleText;
+  final String status;
+  final String summary;
+
+  const RuleItem({
+    required this.ruleText,
+    required this.status,
+    required this.summary,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    bool isViolated = status.toLowerCase() == "violated";
+
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(color: Colors.grey.shade300),
+        ),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Status Icon
+          Icon(
+            isViolated ? Icons.warning_amber_rounded : Icons.check_circle,
+            color: isViolated ? Colors.redAccent : Colors.green,
+            size: 24,
+          ),
+          SizedBox(width: 12),
+
+          // Text Section
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  ruleText,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                    color: isViolated ? Colors.redAccent : Colors.green,
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  summary,
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black87,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
