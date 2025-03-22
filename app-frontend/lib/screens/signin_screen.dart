@@ -292,6 +292,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/upload_screen.dart';
 import 'home_screen.dart';
 import 'reset_password.dart';
 import 'signup_screen.dart';
@@ -439,7 +440,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       .then((value) {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                      MaterialPageRoute(builder: (context) => UploadScreen()),
                     );
                   }).onError((error, stackTrace) {
                     print("Error ${error.toString()}");

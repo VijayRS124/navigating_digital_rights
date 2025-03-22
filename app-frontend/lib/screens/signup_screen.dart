@@ -155,6 +155,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/screens/upload_screen.dart';
 import 'home_screen.dart';
 import 'package:flutter_application_1/utils/color_utils.dart';
 import 'package:flutter_application_1/reusable_widgets/reusable_widget.dart';
@@ -287,7 +288,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     print("Created New Account");
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomeScreen()),
+                      MaterialPageRoute(builder: (context) => UploadScreen()),
                     );
                   }).onError((error, stackTrace) {
                     print("Error ${error.toString()}");
